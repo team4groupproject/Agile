@@ -31,6 +31,7 @@
             this.btnAdministrator = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btnStudents = new System.Windows.Forms.Button();
+            this.btnMainFormExit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnAdministrator
@@ -41,6 +42,7 @@
             this.btnAdministrator.TabIndex = 0;
             this.btnAdministrator.Text = "For Administrators";
             this.btnAdministrator.UseVisualStyleBackColor = true;
+            this.btnAdministrator.Click += new System.EventHandler(this.btnAdministrator_Click);
             // 
             // button1
             // 
@@ -60,11 +62,22 @@
             this.btnStudents.Text = "For Students";
             this.btnStudents.UseVisualStyleBackColor = true;
             // 
+            // btnMainFormExit
+            // 
+            this.btnMainFormExit.Location = new System.Drawing.Point(93, 222);
+            this.btnMainFormExit.Name = "btnMainFormExit";
+            this.btnMainFormExit.Size = new System.Drawing.Size(75, 23);
+            this.btnMainFormExit.TabIndex = 3;
+            this.btnMainFormExit.Text = "Exit";
+            this.btnMainFormExit.UseVisualStyleBackColor = true;
+            this.btnMainFormExit.Click += new System.EventHandler(this.btnMainFormExit_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 257);
+            this.Controls.Add(this.btnMainFormExit);
             this.Controls.Add(this.btnStudents);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnAdministrator);
@@ -79,6 +92,7 @@
         private System.Windows.Forms.Button btnAdministrator;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnStudents;
+        private System.Windows.Forms.Button btnMainFormExit;
     }
 }
 
