@@ -23,11 +23,6 @@ namespace GroupProject
             adminStudent.ShowDialog();
         }
 
-        private void btnAdminChoicesClose_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
         private void btnAdminInstructorChoice_Click(object sender, EventArgs e)
         {
             AdminInstructor adminInstructor = new AdminInstructor();
@@ -38,6 +33,11 @@ namespace GroupProject
         {
             AdminCourses adminCourses = new AdminCourses();
             adminCourses.ShowDialog();
+        }
+
+        private void btnAdminChoicesClose_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
