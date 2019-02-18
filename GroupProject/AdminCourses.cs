@@ -13,54 +13,60 @@ namespace GroupProject
 
         public AdminCourses()
         {
-            InitializeComponent(); connectionString =
-                 ConfigurationManager.ConnectionStrings["GroupProject.Properties.Settings.TinyCollegeDBConnectionString"].ConnectionString;
+            InitializeComponent();
+            connectionString = ConfigurationManager.ConnectionStrings ["GroupProject.Properties.Settings.TinyCollegeDBConnectionString"].ConnectionString;
         }
-
-        private void btnAdminCourseClose_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void btnCoursesClear_Click(object sender, EventArgs e)
-        {
-            txtbxCourseName.Text = String.Empty;
-            txtbxCourseStatus.Text = String.Empty;
-            txtbxCourseCreditHours.Text = String.Empty;
-            txtbxCourseMaxSeats.Text = String.Empty;
-        }
-
-        private void btnSessinClear_Click(object sender, EventArgs e)
-        {
-            txtbxSessionCourseId.Text = String.Empty;
-            txtbxSessionInstructorId.Text = String.Empty;
-            txtbxSessionSeatsFilled.Text = String.Empty;
-        }
-
+       
         private void AdminCourses_Load(object sender, EventArgs e)
         {
             using (conn = new SqlConnection(connectionString))
-            using (SqlDataAdapter adapter = new SqlDataAdapter
-
-                ("SELECT * FROM course", conn))
+            using (SqlDataAdapter adapter = new SqlDataAdapter ("SELECT * FROM course ORDER BY courseName ASC", conn))
             {
                 DataTable courseTable = new DataTable();
                 adapter.Fill(courseTable);
-                CourseComboBox.DisplayMember = "courseName ";
+                CourseComboBox.DisplayMember = "courseName";
                 CourseComboBox.ValueMember = "courseId";
                 CourseComboBox.DataSource = courseTable;
-
             }
 
             using (conn = new SqlConnection(connectionString))
-            using (SqlDataAdapter adapter = new SqlDataAdapter
-            ("SELECT * FROM session", conn))
+            using (SqlDataAdapter adapter = new SqlDataAdapter ("SELECT * FROM session", conn))
             {
                 DataTable sessionTable = new DataTable();
                 adapter.Fill(sessionTable);
                 SessionComboBox.DisplayMember = "sessionId";
                 SessionComboBox.ValueMember = "sessionId";
                 SessionComboBox.DataSource = sessionTable;
+            }
+        }        
+
+        private void CourseComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            using (conn = new SqlConnection(connectionString))
+            using (SqlCommand comd = new SqlCommand ("SELECT courseId, courseName, courseStatus, courseCreditHours, courseMaxNumSeats FROM course" + " WHERE course.courseId = @courseId", conn))
+            using (SqlDataAdapter adapter = new SqlDataAdapter(comd))
+            {
+                comd.Parameters.AddWithValue("@courseId", CourseComboBox.SelectedValue.ToString());
+                DataTable courseTable = new DataTable();
+                txtbxCourseName.Text = "courseName";
+                txtbxCourseStatus.Text = "courseStatus";
+                txtbxCourseCreditHours.Text = "courseCreditHours";
+                txtbxCourseMaxSeats.Text = "courseMaxNumSeats";
+            }
+        }
+
+        private void SessionComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            using (conn = new SqlConnection(connectionString))
+            using (SqlCommand comd = new SqlCommand
+                ("SELECT sessionId, sessionSeatsFilled, instructorId, courseId FROM session" + " WHERE session.sessionId = @sessionId", conn))
+            using (SqlDataAdapter adapter = new SqlDataAdapter(comd))
+            {
+                comd.Parameters.AddWithValue("@sessionId", SessionComboBox.SelectedValue.ToString());
+                DataTable studentTable = new DataTable();
+                txtbxSessionCourseId.Text = "courseId";
+                txtbxSessionInstructorId.Text = "instructorId";
+                txtbxSessionSeatsFilled.Text = "sessionSeatsFilled";
             }
         }
 
@@ -99,35 +105,24 @@ namespace GroupProject
             }
         }
 
-        private void CourseComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnCoursesClear_Click(object sender, EventArgs e)
         {
-            using (conn = new SqlConnection(connectionString))
-            using (SqlCommand comd = new SqlCommand
-                ("SELECT courseId, courseName, courseStatus, courseCreditHours, courseMaxNumSeats FROM course" + "WHERE course.courseId = @courseId", conn))
-            using (SqlDataAdapter adapter = new SqlDataAdapter(comd))
-            {
-                comd.Parameters.AddWithValue("@courseId", CourseComboBox.SelectedValue.ToString());
-                DataTable courseTable = new DataTable();
-                txtbxCourseName.Text = "courseName";
-                txtbxCourseStatus.Text = "courseStatus";
-                txtbxCourseCreditHours.Text = "courseCreditHours";
-                txtbxCourseMaxSeats.Text = "courseMaxNumSeats";
-            }
+            txtbxCourseName.Text = String.Empty;
+            txtbxCourseStatus.Text = String.Empty;
+            txtbxCourseCreditHours.Text = String.Empty;
+            txtbxCourseMaxSeats.Text = String.Empty;
         }
 
-        private void SessionComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnSessinClear_Click(object sender, EventArgs e)
         {
-            using (conn = new SqlConnection(connectionString))
-            using (SqlCommand comd = new SqlCommand
-                ("SELECT sessionId, sessionSeatsFilled, instructorId, courseId FROM session" + "WHERE session.sessionId = @sessionId", conn))
-            using (SqlDataAdapter adapter = new SqlDataAdapter(comd))
-            {
-                comd.Parameters.AddWithValue("@sessionId", SessionComboBox.SelectedValue.ToString());
-                DataTable studentTable = new DataTable();
-                txtbxSessionCourseId.Text = "courseId";
-                txtbxSessionInstructorId.Text = "instructorId";
-                txtbxSessionSeatsFilled.Text = "sessionSeatsFilled";
-            }
+            txtbxSessionCourseId.Text = String.Empty;
+            txtbxSessionInstructorId.Text = String.Empty;
+            txtbxSessionSeatsFilled.Text = String.Empty;
+        }
+
+        private void btnAdminCourseClose_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

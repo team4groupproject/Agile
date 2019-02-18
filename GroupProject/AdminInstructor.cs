@@ -13,34 +13,33 @@ namespace GroupProject
         public AdminInstructor()
         {
             InitializeComponent();
-            connectionString =
-                ConfigurationManager.ConnectionStrings["GroupProject.Properties.Settings.TinyCollegeDBConnectionString"].ConnectionString;
+            connectionString = ConfigurationManager.ConnectionStrings ["GroupProject.Properties.Settings.TinyCollegeDBConnectionString"].ConnectionString;
         }
-
-        private void btnAdminInstructorClose_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void btnAdminInstructorClear_Click(object sender, EventArgs e)
-        {
-            txtbxInstructorFirstName.Text = String.Empty;
-            txtbxInstructorLastName.Text = String.Empty;
-        }
-
+        
         private void AdminInstructor_Load(object sender, EventArgs e)
         {
             using (conn = new SqlConnection(connectionString))
-            using (SqlDataAdapter adapter = new SqlDataAdapter
-
-                ("SELECT * FROM instructor", conn))
+            using (SqlDataAdapter adapter = new SqlDataAdapter ("SELECT instructorId, CONCAT (instructorFirstName, ' ', instructorLastName) as FirstLast FROM instructor ORDER BY FirstLast ASC", conn))
             {
                 DataTable instructorTable = new DataTable();
                 adapter.Fill(instructorTable);
-                InstructorComboBox.DisplayMember = "instructorFirstName " + "instructorLastName";
+                InstructorComboBox.DisplayMember = "FirstLast";
                 InstructorComboBox.ValueMember = "instructorId";
                 InstructorComboBox.DataSource = instructorTable;
+            }
+        }
 
+        private void InstructorComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            using (conn = new SqlConnection(connectionString))
+            using (SqlCommand comd = new SqlCommand ("SELECT instructorId, instructorFirstName, instructorLastName FROM instructor" + " WHERE instructor.instructorId = @instructorId", conn))
+            using (SqlDataAdapter adapter = new SqlDataAdapter(comd))
+            {
+                comd.Parameters.AddWithValue("@instructorId", InstructorComboBox.SelectedValue.ToString());
+                DataTable instructorTable = new DataTable();
+                txtbxInstructorFirstName.Text = "";
+                txtbxInstructorLastName.Text = "";
+                txtbxInstructorFirstName.SelectedText = "";
             }
         }
 
@@ -59,18 +58,15 @@ namespace GroupProject
             }
         }
 
-        private void InstructorComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnAdminInstructorClose_Click(object sender, EventArgs e)
         {
-            using (conn = new SqlConnection(connectionString))
-            using (SqlCommand comd = new SqlCommand
-                ("SELECT instructorId, instructorFirstName, instructorLastName FROM instructor" + "WHERE instructor.instructorId = @instructorId", conn))
-            using (SqlDataAdapter adapter = new SqlDataAdapter(comd))
-            {
-                comd.Parameters.AddWithValue("@instructorId", InstructorComboBox.SelectedValue.ToString());
-                DataTable instructorTable = new DataTable();
-                txtbxInstructorFirstName.Text = "instructorFirstName";
-                txtbxInstructorLastName.Text = "instructorLastName";
-            }
+            Close();
         }
+
+        private void btnAdminInstructorClear_Click(object sender, EventArgs e)
+        {
+            txtbxInstructorFirstName.Text = String.Empty;
+            txtbxInstructorLastName.Text = String.Empty;
+        }        
     }
 }

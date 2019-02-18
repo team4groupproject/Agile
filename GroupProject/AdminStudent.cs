@@ -13,23 +13,19 @@ namespace GroupProject
         public AdminStudent()
         {
             InitializeComponent();
-            connectionString =
-                ConfigurationManager.ConnectionStrings["GroupProject.Properties.Settings.TinyCollegeDBConnectionString"].ConnectionString;
+            connectionString = ConfigurationManager.ConnectionStrings["GroupProject.Properties.Settings.TinyCollegeDBConnectionString"].ConnectionString;
         }
 
         private void AdminStudent_Load(object sender, EventArgs e)
         {
             using (conn = new SqlConnection(connectionString))
-            using (SqlDataAdapter adapter = new SqlDataAdapter
-
-                ("SELECT * FROM student", conn))
+            using (SqlDataAdapter adapter = new SqlDataAdapter ("SELECT studentId, CONCAT (studentFirstName, ' ', studentLastName) as FirstLast FROM student ORDER BY FirstLast ASC", conn))
             {
                 DataTable studentTable = new DataTable();
                 adapter.Fill(studentTable);
-                StudentComboBox.DisplayMember = "studentFirstName " + "studentLastName";
+                StudentComboBox.DisplayMember = "FirstLast";
                 StudentComboBox.ValueMember = "studentId";
-                StudentComboBox.DataSource = studentTable;
-                
+                StudentComboBox.DataSource = studentTable;                
             }
         }
 
@@ -37,13 +33,13 @@ namespace GroupProject
         {
             using (conn = new SqlConnection(connectionString))
             using (SqlCommand comd = new SqlCommand
-                ("SELECT studentId, studentFirstName, studentLastName FROM student" + "WHERE student.studentId = @studentId", conn))
+                ("SELECT studentId, studentFirstName, studentLastName FROM student" + " WHERE student.studentId = @studentId", conn))
                 using (SqlDataAdapter adapter = new SqlDataAdapter(comd))
             {
                 comd.Parameters.AddWithValue("@studentId", StudentComboBox.SelectedValue.ToString());
                 DataTable studentTable = new DataTable();
-                txtbxStuFirstName.Text = "studentFirstName";
-                txtbxStuLastName.Text = "studentLastName";
+                txtbxStuFirstName.Text = "";
+                txtbxStuLastName.Text = "";
             }
         }
 
@@ -51,11 +47,6 @@ namespace GroupProject
         {
             txtbxStuLastName.Text = String.Empty;
             txtbxStuFirstName.Text = String.Empty;
-        }
-
-        private void btnAdminStudentClose_Click(object sender, EventArgs e)
-        {
-            Close();
         }
 
         private void btnAdminAddStudent_Click(object sender, EventArgs e)
@@ -69,6 +60,11 @@ namespace GroupProject
                 comd.ExecuteScalar();
                 MessageBox.Show("StudentAdded");
             }
+        }
+
+        private void btnAdminStudentClose_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
