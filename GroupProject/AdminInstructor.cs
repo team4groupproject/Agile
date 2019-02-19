@@ -32,15 +32,18 @@ namespace GroupProject
         private void InstructorComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             using (conn = new SqlConnection(connectionString))
-            using (SqlCommand comd = new SqlCommand ("SELECT instructorId, instructorFirstName, instructorLastName FROM instructor" + " WHERE instructor.instructorId = @instructorId", conn))
-            using (SqlDataAdapter adapter = new SqlDataAdapter(comd))
-            {
-                comd.Parameters.AddWithValue("@instructorId", InstructorComboBox.SelectedValue.ToString());
-                DataTable instructorTable = new DataTable();
-                txtbxInstructorFirstName.Text = "";
-                txtbxInstructorLastName.Text = "";
-                txtbxInstructorFirstName.SelectedText = "";
-            }
+                if (InstructorComboBox.SelectedIndex != -1)
+                {
+                    DataTable instructorTable = new DataTable();
+                    SqlCommand comd = new SqlCommand("SELECT instructorId, instructorFirstName, instructorLastName FROM instructor where instructorId='" + InstructorComboBox.SelectedValue + "'", conn);
+                    SqlDataAdapter adapter = new SqlDataAdapter(comd);
+                    adapter.Fill(instructorTable);
+                    if (instructorTable.Rows.Count > 0)
+                    {
+                        txtbxInstructorFirstName.Text = instructorTable.Rows[0]["instructorFirstName"].ToString(); 
+                        txtbxInstructorLastName.Text = instructorTable.Rows[0]["instructorLastName"].ToString(); ;
+                    }
+                }
         }
 
         private void btnAdminInstructorSave_Click(object sender, EventArgs e)

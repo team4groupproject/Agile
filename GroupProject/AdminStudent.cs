@@ -3,6 +3,9 @@ using System.Data;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using System.Drawing;
+using System.ComponentModel;
+using System.Collections.Generic;
 
 namespace GroupProject
 {
@@ -10,6 +13,7 @@ namespace GroupProject
     {
         string connectionString;
         SqlConnection conn;
+
         public AdminStudent()
         {
             InitializeComponent();
@@ -19,27 +23,33 @@ namespace GroupProject
         private void AdminStudent_Load(object sender, EventArgs e)
         {
             using (conn = new SqlConnection(connectionString))
-            using (SqlDataAdapter adapter = new SqlDataAdapter ("SELECT studentId, CONCAT (studentFirstName, ' ', studentLastName) as FirstLast FROM student ORDER BY FirstLast ASC", conn))
+            using (SqlDataAdapter adapter = new SqlDataAdapter("SELECT studentId, CONCAT (studentFirstName,  ' ', studentLastName) as FirstLast FROM student ORDER BY FirstLast ASC", conn))
             {
                 DataTable studentTable = new DataTable();
                 adapter.Fill(studentTable);
-                StudentComboBox.DisplayMember = "FirstLast";
-                StudentComboBox.ValueMember = "studentId";
-                StudentComboBox.DataSource = studentTable;                
+                if (studentTable.Rows.Count > 0)
+                {
+                    this.StudentComboBox.DisplayMember = "FirstLast";
+                    this.StudentComboBox.ValueMember = "studentId";
+                    this.StudentComboBox.DataSource = studentTable;
+                }
             }
         }
 
         private void StudentComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             using (conn = new SqlConnection(connectionString))
-            using (SqlCommand comd = new SqlCommand
-                ("SELECT studentId, studentFirstName, studentLastName FROM student" + " WHERE student.studentId = @studentId", conn))
-                using (SqlDataAdapter adapter = new SqlDataAdapter(comd))
+            if (StudentComboBox.SelectedIndex != -1)
             {
-                comd.Parameters.AddWithValue("@studentId", StudentComboBox.SelectedValue.ToString());
                 DataTable studentTable = new DataTable();
-                txtbxStuFirstName.Text = "";
-                txtbxStuLastName.Text = "";
+                SqlCommand comd = new SqlCommand("SELECT studentId, studentFirstName, studentLastName FROM student where studentId='" + StudentComboBox.SelectedValue + "'", conn);
+                SqlDataAdapter adapter = new SqlDataAdapter(comd);
+                adapter.Fill(studentTable);
+                if (studentTable.Rows.Count > 0)
+                {
+                    txtbxStuFirstName.Text = studentTable.Rows[0]["studentFirstName"].ToString();
+                    txtbxStuLastName.Text = studentTable.Rows[0]["studentLastName"].ToString();                    
+                }                
             }
         }
 
