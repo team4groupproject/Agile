@@ -76,13 +76,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(284, 257);
             this.Controls.Add(this.btnMainFormExit);
             this.Controls.Add(this.btnStudents);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnAdministrator);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Tiny College";
             this.ResumeLayout(false);
 
         }
