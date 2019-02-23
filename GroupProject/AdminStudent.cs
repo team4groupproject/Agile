@@ -45,6 +45,7 @@ namespace GroupProject
                 SqlCommand comd = new SqlCommand("SELECT studentId, studentFirstName, studentLastName FROM student where studentId='" + StudentComboBox.SelectedValue + "'", conn);
                 SqlDataAdapter adapter = new SqlDataAdapter(comd);
                 adapter.Fill(studentTable);
+
                 if (studentTable.Rows.Count > 0)
                 {
                     txtbxStuFirstName.Text = studentTable.Rows[0]["studentFirstName"].ToString();
