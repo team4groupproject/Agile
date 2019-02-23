@@ -17,7 +17,7 @@ namespace GroupProject
         {
 
             InitializeComponent();
-            connectionString = ConfigurationManager.ConnectionStrings["GroupProject.Properties.Settings.TinyCollegeDBConnectionString1"].ConnectionString;
+            connectionString = ConfigurationManager.ConnectionStrings["GroupProject.Properties.Settings.TinyCollegeDBConnectionString"].ConnectionString;
         }
 
         private void btnExitInstructor_Click(object sender, EventArgs e)
@@ -51,13 +51,13 @@ namespace GroupProject
 
         private void btnClearInstructor_Click(object sender, EventArgs e)
         {
-            txtBoxINSTid.Text = String.Empty;
-            cmboBoxInstructorCourses.Text = String.Empty; ;
-            //lstbxCourseStudents.Items.Clear();  //can't figure out how to clear listbox
-            lblStuCourseID.Text = String.Empty;
-            lblStuFirstName.Text = String.Empty;
-            lblStuLastName.Text = String.Empty;
-            txtbxStuGrade.Text = String.Empty;
+            txtBoxINSTid.Clear();
+            cmboBoxInstructorCourses.DataSource = null;
+            lstbxCourseStudents.DataSource = null;
+            lblStuCourseID.Text = "";
+            lblStuFirstName.Text = "";
+            lblStuLastName.Text = "";
+            txtbxStuGrade.Clear();
         }
 
         //when OKAY button is clicked the instructor entered id will be used to select which course name's are displayed in the dropdown combobox
@@ -79,30 +79,23 @@ namespace GroupProject
             }
         }
 
-      //when student is selected it displays their information in the labels and textboxes for the user
+        //when student is selected it displays their information in the labels and textboxes for the user
         private void lstbxCourseStudents_SelectedIndexChanged(object sender, EventArgs e)
         {
             using (conn = new SqlConnection(connectionString))
                 if (lstbxCourseStudents.SelectedIndex != -1)
                 {
                     DataTable stuGradeTable = new DataTable();
-                    SqlCommand comd = new SqlCommand($@"SELECT registration.registrationId AS RegistrationID, registration.studentId AS StudentID, 
-                        registration.sessionId AS SessionId, session.courseId AS CourseID, registration.grade AS Grade,
-                        student.studentFirstName AS Fname, student.studentLastName AS Lname
-                        FROM registration 
-                        LEFT OUTER JOIN student
-                        ON registration.studentId = student.studentId
-                        LEFT OUTER JOIN session 
-                        ON registration.sessionId = session.sessionId 
-                        WHERE student.studentId='{ lstbxCourseStudents.SelectedValue }'", conn);
-                    SqlDataAdapter adapter = new SqlDataAdapter(comd);
-                    adapter.Fill(stuGradeTable);
+                    SqlCommand comd = new SqlCommand($@"SELECT registration.registrationId AS RegistrationID, registration.studentId AS StudentID, registration.sessionId AS SessionId, session.courseId AS CourseID, registration.grade AS Grade, student.studentFirstName AS fName, student.studentLastName AS lName FROM registration LEFT OUTER JOIN student ON registration.studentId = student.studentId LEFT OUTER JOIN session ON registration.sessionId = session.sessionId WHERE student.studentId='{ lstbxCourseStudents.SelectedValue }'", conn);                    
+                    
                     if (stuGradeTable.Rows.Count > 0)
                     {
-                        comd.Parameters.AddWithValue("@StudentID",lstbxCourseStudents.SelectedValue.ToString());
+                        SqlDataAdapter adapter = new SqlDataAdapter(comd);
+                        adapter.Fill(stuGradeTable);
+                        comd.Parameters.AddWithValue("@StudentID", lstbxCourseStudents.SelectedValue.ToString());
                         lblStuCourseID.Text = stuGradeTable.Rows[0]["CourseID"].ToString();
-                        lblStuFirstName.Text = stuGradeTable.Rows[0]["Fname"].ToString();
-                        lblStuLastName.Text = stuGradeTable.Rows[0]["Lname"].ToString();
+                        lblStuFirstName.Text = stuGradeTable.Rows[0]["fName"].ToString();
+                        lblStuLastName.Text = stuGradeTable.Rows[0]["lName"].ToString();
                         lblRegistrationID.Text = stuGradeTable.Rows[0]["RegistrationID"].ToString();
                         txtbxStuGrade.Text = stuGradeTable.Rows[0]["Grade"].ToString();
                     }
