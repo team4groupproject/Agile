@@ -64,6 +64,7 @@ CREATE TABLE registration
            registrationId INT NOT NULL IDENTITY,
 		   sessionId INT NOT NULL,
 		   studentId INT NOT NULL,
+		   grade CHAR,
            CONSTRAINT pk_registration PRIMARY KEY (registrationId),
            CONSTRAINT fk_registration_session FOREIGN KEY (sessionId)
                   REFERENCES session(sessionId),
