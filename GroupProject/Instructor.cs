@@ -8,6 +8,7 @@ namespace GroupProject
 {
     public partial class Instructor : Form
     {
+        //declare string variable
         string connectionString;
         SqlConnection conn;
 
@@ -15,21 +16,21 @@ namespace GroupProject
 
         public Instructor()
         {
-
+            //assign value to variable conn
             InitializeComponent();
             connectionString = ConfigurationManager.ConnectionStrings["GroupProject.Properties.Settings.TinyCollegeDBConnectionString1"].ConnectionString;
         }
-
+        //Exits instructor form upon activation
         private void btnExitInstructor_Click(object sender, EventArgs e)
         {
             Close();
         }
-
+        //Sets up for user input on activation
         private void Instructor_Load(object sender, EventArgs e)
         {
             txtBoxINSTid.Focus();
         }
-
+        //Fills SQL Database values into ComboBox
         private void cmboBoxInstructorCourses_SelectedIndexChanged(object sender, EventArgs e)
         {
             using (conn = new SqlConnection(connectionString))
@@ -48,7 +49,7 @@ namespace GroupProject
                     }
                 }
         }
-
+        //Clears Student information on activation
         private void btnClearInstructor_Click(object sender, EventArgs e)
         {
             txtBoxINSTid.Text = String.Empty;
