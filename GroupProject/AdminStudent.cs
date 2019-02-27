@@ -11,15 +11,17 @@ namespace GroupProject
 {
     public partial class AdminStudent : Form
     {
+        //Establish conn
         string connectionString;
         SqlConnection conn;
 
         public AdminStudent()
         {
+            //Connects form with SQL Database
             InitializeComponent();
             connectionString = ConfigurationManager.ConnectionStrings["GroupProject.Properties.Settings.TinyCollegeDBConnectionString"].ConnectionString;
         }
-
+        // Displays student info on activation
         private void AdminStudent_Load(object sender, EventArgs e)
         {
             using (conn = new SqlConnection(connectionString))
@@ -35,7 +37,7 @@ namespace GroupProject
                 }
             }
         }
-
+        // Fills SQL Student information into the ComboBox
         private void StudentComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             using (conn = new SqlConnection(connectionString))
@@ -53,13 +55,13 @@ namespace GroupProject
                 }                
             }
         }
-
+        // Clears student info on activations
         private void btnAdminStudentClear_Click(object sender, EventArgs e)
         {
             txtbxStuLastName.Text = String.Empty;
             txtbxStuFirstName.Text = String.Empty;
         }
-
+        // Allows user to add a new student
         private void btnAdminAddStudent_Click(object sender, EventArgs e)
         {
             using (conn = new SqlConnection(connectionString))
@@ -72,7 +74,7 @@ namespace GroupProject
                 MessageBox.Show("StudentAdded");
             }
         }
-
+        //Closes form
         private void btnAdminStudentClose_Click(object sender, EventArgs e)
         {
             Close();
