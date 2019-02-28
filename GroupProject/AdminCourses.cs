@@ -136,5 +136,38 @@ namespace GroupProject
         {
             Close();
         }
+
+        private void courseUpdateButton_Click(object sender, EventArgs e)
+        {
+            using (conn = new SqlConnection(connectionString))
+            using (SqlCommand comd = new SqlCommand("UPDATE course SET courseName" + "= @cName, courseStatus" + "= @status, courseCreditHours" + "=@cHours, courseMaxNumSeats" + "= @cSeats WHERE courseId" + "= @CourseID", conn))
+            {
+                conn.Open();
+                comd.Parameters.AddWithValue("@cName", txtbxCourseName.Text);
+                comd.Parameters.AddWithValue("@status", txtbxCourseStatus.Text);
+                comd.Parameters.AddWithValue("@cHours", txtbxCourseCreditHours.Text);
+                comd.Parameters.AddWithValue("@cSeats", txtbxCourseMaxSeats.Text);
+                comd.Parameters.AddWithValue("@CourseID", CourseComboBox.SelectedValue);
+                comd.ExecuteScalar();
+                MessageBox.Show("The Course Information Has Been Updated");
+
+            }
+        }
+
+        private void sessionUpdateButton_Click(object sender, EventArgs e)
+        {
+            using (conn = new SqlConnection(connectionString))
+            using (SqlCommand comd = new SqlCommand("UPDATE session SET session.courseId" + "= @sCId, sessionSeatsFilled" + "= @sSeats, session.instructorId" + "=@sId  WHERE sessionId" + "= @SessionID", conn))
+            {
+                conn.Open();
+                comd.Parameters.AddWithValue("@sCId", txtbxSessionCourseId.Text);
+                comd.Parameters.AddWithValue("@sId", txtbxSessionInstructorId.Text);
+                comd.Parameters.AddWithValue("@sSeats", txtbxSessionSeatsFilled.Text);
+                comd.Parameters.AddWithValue("@SessionID", SessionComboBox.SelectedValue);
+                comd.ExecuteScalar();
+                MessageBox.Show("The Course Information Has Been Updated");
+
+            }
+        }
     }
 }

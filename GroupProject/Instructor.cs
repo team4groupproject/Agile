@@ -87,12 +87,13 @@ namespace GroupProject
                 if (lstbxCourseStudents.SelectedIndex != -1)
                 {
                     DataTable stuGradeTable = new DataTable();
-                    SqlCommand comd = new SqlCommand($@"SELECT registration.registrationId AS RegistrationID, registration.studentId AS StudentID, registration.sessionId AS SessionId, session.courseId AS CourseID, registration.grade AS Grade, student.studentFirstName AS fName, student.studentLastName AS lName FROM registration LEFT OUTER JOIN student ON registration.studentId = student.studentId LEFT OUTER JOIN session ON registration.sessionId = session.sessionId WHERE student.studentId='{ lstbxCourseStudents.SelectedValue }'", conn);                    
-                    
+                    SqlCommand comd = new SqlCommand($@"SELECT registration.registrationId AS RegistrationID, registration.studentId AS StudentID, registration.sessionId AS SessionId, session.courseId AS CourseID, registration.grade AS Grade, student.studentFirstName AS fName, student.studentLastName AS lName FROM registration LEFT OUTER JOIN student ON registration.studentId = student.studentId LEFT OUTER JOIN session ON registration.sessionId = session.sessionId WHERE student.studentId='{ lstbxCourseStudents.SelectedValue }'", conn);
+                    SqlDataAdapter adapter = new SqlDataAdapter(comd);
+                    adapter.Fill(stuGradeTable);
+
                     if (stuGradeTable.Rows.Count > 0)
                     {
-                        SqlDataAdapter adapter = new SqlDataAdapter(comd);
-                        adapter.Fill(stuGradeTable);
+                        
                         comd.Parameters.AddWithValue("@StudentID", lstbxCourseStudents.SelectedValue.ToString());
                         lblStuCourseID.Text = stuGradeTable.Rows[0]["CourseID"].ToString();
                         lblStuFirstName.Text = stuGradeTable.Rows[0]["fName"].ToString();

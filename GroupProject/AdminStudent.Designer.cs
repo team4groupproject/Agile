@@ -37,6 +37,7 @@
             this.StudentComboBox = new System.Windows.Forms.ComboBox();
             this.btnAdminStudentClear = new System.Windows.Forms.Button();
             this.btnAdminStudentClose = new System.Windows.Forms.Button();
+            this.studentUpdateButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -119,11 +120,22 @@
             this.btnAdminStudentClose.UseVisualStyleBackColor = true;
             this.btnAdminStudentClose.Click += new System.EventHandler(this.btnAdminStudentClose_Click);
             // 
+            // studentUpdateButton
+            // 
+            this.studentUpdateButton.Location = new System.Drawing.Point(115, 216);
+            this.studentUpdateButton.Name = "studentUpdateButton";
+            this.studentUpdateButton.Size = new System.Drawing.Size(75, 23);
+            this.studentUpdateButton.TabIndex = 9;
+            this.studentUpdateButton.Text = "&Update";
+            this.studentUpdateButton.UseVisualStyleBackColor = true;
+            this.studentUpdateButton.Click += new System.EventHandler(this.studentUpdateButton_Click);
+            // 
             // AdminStudent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(314, 213);
+            this.ClientSize = new System.Drawing.Size(314, 251);
+            this.Controls.Add(this.studentUpdateButton);
             this.Controls.Add(this.btnAdminStudentClose);
             this.Controls.Add(this.btnAdminStudentClear);
             this.Controls.Add(this.StudentComboBox);
@@ -152,5 +164,6 @@
         private System.Windows.Forms.ComboBox StudentComboBox;
         private System.Windows.Forms.Button btnAdminStudentClear;
         private System.Windows.Forms.Button btnAdminStudentClose;
+        private System.Windows.Forms.Button studentUpdateButton;
     }
 }

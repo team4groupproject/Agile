@@ -79,5 +79,20 @@ namespace GroupProject
         {
             Close();
         }
+
+        private void studentUpdateButton_Click(object sender, EventArgs e)
+        {
+            using (conn = new SqlConnection(connectionString))
+            using (SqlCommand comd = new SqlCommand("UPDATE student SET studentFirstName" + "= @fName, studentLastName" + "= @lName WHERE studentId" + "= @StudentID", conn))
+            {
+                conn.Open();
+                comd.Parameters.AddWithValue("@fName", txtbxStuFirstName.Text);
+                comd.Parameters.AddWithValue("@lName", txtbxStuLastName.Text);
+                comd.Parameters.AddWithValue("@StudentID", StudentComboBox.SelectedValue);
+                comd.ExecuteScalar();
+                MessageBox.Show("The Student Information Has Been Updated");
+
+            }
+        }
     }
 }

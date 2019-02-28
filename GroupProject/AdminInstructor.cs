@@ -73,6 +73,21 @@ namespace GroupProject
         {
             txtbxInstructorFirstName.Text = String.Empty;
             txtbxInstructorLastName.Text = String.Empty;
-        }        
+        }
+
+        private void instructorUpdateButton_Click(object sender, EventArgs e)
+        {
+            using (conn = new SqlConnection(connectionString))
+            using (SqlCommand comd = new SqlCommand("UPDATE instructor SET instructorFirstName" + "= @fName, instructorLastName" + "= @lName WHERE instructorId" + "= @InstructorId", conn))
+            {
+                conn.Open();
+                comd.Parameters.AddWithValue("@fName", txtbxInstructorFirstName.Text);
+                comd.Parameters.AddWithValue("@lName", txtbxInstructorLastName.Text);
+                comd.Parameters.AddWithValue("@InstructorId", InstructorComboBox.SelectedValue);
+                comd.ExecuteScalar();
+                MessageBox.Show("The Instructor Information Has Been Updated");
+
+            }
+        }
     }
 }
