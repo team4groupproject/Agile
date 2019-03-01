@@ -37,6 +37,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtbxInstructorFirstName = new System.Windows.Forms.TextBox();
             this.txtbxInstructorLastName = new System.Windows.Forms.TextBox();
+            this.instructorUpdateButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -59,7 +60,7 @@
             // 
             // btnAdminInstructorClose
             // 
-            this.btnAdminInstructorClose.Location = new System.Drawing.Point(23, 214);
+            this.btnAdminInstructorClose.Location = new System.Drawing.Point(23, 198);
             this.btnAdminInstructorClose.Name = "btnAdminInstructorClose";
             this.btnAdminInstructorClose.Size = new System.Drawing.Size(75, 23);
             this.btnAdminInstructorClose.TabIndex = 2;
@@ -69,7 +70,7 @@
             // 
             // btnAdminInstructorClear
             // 
-            this.btnAdminInstructorClear.Location = new System.Drawing.Point(120, 214);
+            this.btnAdminInstructorClear.Location = new System.Drawing.Point(120, 198);
             this.btnAdminInstructorClear.Name = "btnAdminInstructorClear";
             this.btnAdminInstructorClear.Size = new System.Drawing.Size(75, 23);
             this.btnAdminInstructorClear.TabIndex = 3;
@@ -79,7 +80,7 @@
             // 
             // btnAdminInstructorSave
             // 
-            this.btnAdminInstructorSave.Location = new System.Drawing.Point(219, 214);
+            this.btnAdminInstructorSave.Location = new System.Drawing.Point(219, 198);
             this.btnAdminInstructorSave.Name = "btnAdminInstructorSave";
             this.btnAdminInstructorSave.Size = new System.Drawing.Size(75, 23);
             this.btnAdminInstructorSave.TabIndex = 4;
@@ -119,11 +120,22 @@
             this.txtbxInstructorLastName.Size = new System.Drawing.Size(174, 20);
             this.txtbxInstructorLastName.TabIndex = 8;
             // 
+            // instructorUpdateButton
+            // 
+            this.instructorUpdateButton.Location = new System.Drawing.Point(120, 244);
+            this.instructorUpdateButton.Name = "instructorUpdateButton";
+            this.instructorUpdateButton.Size = new System.Drawing.Size(75, 23);
+            this.instructorUpdateButton.TabIndex = 9;
+            this.instructorUpdateButton.Text = "&Update";
+            this.instructorUpdateButton.UseVisualStyleBackColor = true;
+            this.instructorUpdateButton.Click += new System.EventHandler(this.instructorUpdateButton_Click);
+            // 
             // AdminInstructor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(322, 261);
+            this.ClientSize = new System.Drawing.Size(322, 279);
+            this.Controls.Add(this.instructorUpdateButton);
             this.Controls.Add(this.txtbxInstructorLastName);
             this.Controls.Add(this.txtbxInstructorFirstName);
             this.Controls.Add(this.label3);
@@ -152,5 +164,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtbxInstructorFirstName;
         private System.Windows.Forms.TextBox txtbxInstructorLastName;
+        private System.Windows.Forms.Button instructorUpdateButton;
     }
 }

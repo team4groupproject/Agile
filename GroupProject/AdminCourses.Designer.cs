@@ -51,6 +51,8 @@
             this.txtbxCourseMaxSeats = new System.Windows.Forms.TextBox();
             this.btnCoursesClear = new System.Windows.Forms.Button();
             this.btnCourseSave = new System.Windows.Forms.Button();
+            this.sessionUpdateButton = new System.Windows.Forms.Button();
+            this.courseUpdateButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -91,9 +93,9 @@
             // 
             // btnAdminCourseClose
             // 
-            this.btnAdminCourseClose.Location = new System.Drawing.Point(214, 271);
+            this.btnAdminCourseClose.Location = new System.Drawing.Point(225, 271);
             this.btnAdminCourseClose.Name = "btnAdminCourseClose";
-            this.btnAdminCourseClose.Size = new System.Drawing.Size(75, 23);
+            this.btnAdminCourseClose.Size = new System.Drawing.Size(97, 23);
             this.btnAdminCourseClose.TabIndex = 4;
             this.btnAdminCourseClose.Text = "Close";
             this.btnAdminCourseClose.UseVisualStyleBackColor = true;
@@ -251,11 +253,33 @@
             this.btnCourseSave.UseVisualStyleBackColor = true;
             this.btnCourseSave.Click += new System.EventHandler(this.btnCourseSave_Click);
             // 
+            // sessionUpdateButton
+            // 
+            this.sessionUpdateButton.Location = new System.Drawing.Point(377, 271);
+            this.sessionUpdateButton.Name = "sessionUpdateButton";
+            this.sessionUpdateButton.Size = new System.Drawing.Size(97, 23);
+            this.sessionUpdateButton.TabIndex = 23;
+            this.sessionUpdateButton.Text = "Up&date Session";
+            this.sessionUpdateButton.UseVisualStyleBackColor = true;
+            this.sessionUpdateButton.Click += new System.EventHandler(this.sessionUpdateButton_Click);
+            // 
+            // courseUpdateButton
+            // 
+            this.courseUpdateButton.Location = new System.Drawing.Point(82, 271);
+            this.courseUpdateButton.Name = "courseUpdateButton";
+            this.courseUpdateButton.Size = new System.Drawing.Size(97, 23);
+            this.courseUpdateButton.TabIndex = 24;
+            this.courseUpdateButton.Text = "&Update Course";
+            this.courseUpdateButton.UseVisualStyleBackColor = true;
+            this.courseUpdateButton.Click += new System.EventHandler(this.courseUpdateButton_Click);
+            // 
             // AdminCourses
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(534, 306);
+            this.Controls.Add(this.courseUpdateButton);
+            this.Controls.Add(this.sessionUpdateButton);
             this.Controls.Add(this.btnCourseSave);
             this.Controls.Add(this.btnCoursesClear);
             this.Controls.Add(this.txtbxCourseMaxSeats);
@@ -312,5 +336,7 @@
         private System.Windows.Forms.TextBox txtbxCourseMaxSeats;
         private System.Windows.Forms.Button btnCoursesClear;
         private System.Windows.Forms.Button btnCourseSave;
+        private System.Windows.Forms.Button sessionUpdateButton;
+        private System.Windows.Forms.Button courseUpdateButton;
     }
 }

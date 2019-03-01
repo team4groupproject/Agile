@@ -56,7 +56,7 @@
             this.cmboBoxInstructorCourses.Location = new System.Drawing.Point(75, 92);
             this.cmboBoxInstructorCourses.Name = "cmboBoxInstructorCourses";
             this.cmboBoxInstructorCourses.Size = new System.Drawing.Size(278, 21);
-            this.cmboBoxInstructorCourses.TabIndex = 0;
+            this.cmboBoxInstructorCourses.TabIndex = 3;
             this.cmboBoxInstructorCourses.SelectedIndexChanged += new System.EventHandler(this.cmboBoxInstructorCourses_SelectedIndexChanged);
             // 
             // lstbxCourseStudents
@@ -65,7 +65,7 @@
             this.lstbxCourseStudents.Location = new System.Drawing.Point(12, 142);
             this.lstbxCourseStudents.Name = "lstbxCourseStudents";
             this.lstbxCourseStudents.Size = new System.Drawing.Size(178, 212);
-            this.lstbxCourseStudents.TabIndex = 1;
+            this.lstbxCourseStudents.TabIndex = 4;
             this.lstbxCourseStudents.SelectedIndexChanged += new System.EventHandler(this.lstbxCourseStudents_SelectedIndexChanged);
             // 
             // label1
@@ -110,7 +110,7 @@
             this.lblStuFirstName.Location = new System.Drawing.Point(279, 146);
             this.lblStuFirstName.Name = "lblStuFirstName";
             this.lblStuFirstName.Size = new System.Drawing.Size(142, 23);
-            this.lblStuFirstName.TabIndex = 7;
+            this.lblStuFirstName.TabIndex = 5;
             // 
             // lblStuLastName
             // 
@@ -118,7 +118,7 @@
             this.lblStuLastName.Location = new System.Drawing.Point(279, 169);
             this.lblStuLastName.Name = "lblStuLastName";
             this.lblStuLastName.Size = new System.Drawing.Size(142, 23);
-            this.lblStuLastName.TabIndex = 8;
+            this.lblStuLastName.TabIndex = 6;
             // 
             // lblStuCourseID
             // 
@@ -126,21 +126,21 @@
             this.lblStuCourseID.Location = new System.Drawing.Point(279, 192);
             this.lblStuCourseID.Name = "lblStuCourseID";
             this.lblStuCourseID.Size = new System.Drawing.Size(142, 23);
-            this.lblStuCourseID.TabIndex = 9;
+            this.lblStuCourseID.TabIndex = 7;
             // 
             // txtbxStuGrade
             // 
             this.txtbxStuGrade.Location = new System.Drawing.Point(279, 264);
             this.txtbxStuGrade.Name = "txtbxStuGrade";
             this.txtbxStuGrade.Size = new System.Drawing.Size(74, 20);
-            this.txtbxStuGrade.TabIndex = 11;
+            this.txtbxStuGrade.TabIndex = 9;
             // 
             // btnClearInstructor
             // 
             this.btnClearInstructor.Location = new System.Drawing.Point(219, 331);
             this.btnClearInstructor.Name = "btnClearInstructor";
             this.btnClearInstructor.Size = new System.Drawing.Size(75, 23);
-            this.btnClearInstructor.TabIndex = 12;
+            this.btnClearInstructor.TabIndex = 11;
             this.btnClearInstructor.Text = "Clear";
             this.btnClearInstructor.UseVisualStyleBackColor = true;
             this.btnClearInstructor.Click += new System.EventHandler(this.btnClearInstructor_Click);
@@ -150,7 +150,7 @@
             this.btnExitInstructor.Location = new System.Drawing.Point(328, 331);
             this.btnExitInstructor.Name = "btnExitInstructor";
             this.btnExitInstructor.Size = new System.Drawing.Size(75, 23);
-            this.btnExitInstructor.TabIndex = 13;
+            this.btnExitInstructor.TabIndex = 12;
             this.btnExitInstructor.Text = "Close";
             this.btnExitInstructor.UseVisualStyleBackColor = true;
             this.btnExitInstructor.Click += new System.EventHandler(this.btnExitInstructor_Click);
@@ -160,7 +160,7 @@
             this.btnUpdateGrade.Location = new System.Drawing.Point(237, 302);
             this.btnUpdateGrade.Name = "btnUpdateGrade";
             this.btnUpdateGrade.Size = new System.Drawing.Size(134, 23);
-            this.btnUpdateGrade.TabIndex = 14;
+            this.btnUpdateGrade.TabIndex = 10;
             this.btnUpdateGrade.Text = "Update Grade";
             this.btnUpdateGrade.UseVisualStyleBackColor = true;
             this.btnUpdateGrade.Click += new System.EventHandler(this.btnUpdateGrade_Click);
@@ -181,7 +181,7 @@
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(24, 36);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(218, 16);
+            this.label6.Size = new System.Drawing.Size(208, 16);
             this.label6.TabIndex = 16;
             this.label6.Text = "Enter Your ID then click Okay";
             // 
@@ -199,14 +199,14 @@
             this.txtBoxINSTid.Location = new System.Drawing.Point(262, 35);
             this.txtBoxINSTid.Name = "txtBoxINSTid";
             this.txtBoxINSTid.Size = new System.Drawing.Size(72, 20);
-            this.txtBoxINSTid.TabIndex = 18;
+            this.txtBoxINSTid.TabIndex = 0;
             // 
             // btnIDokay
             // 
             this.btnIDokay.Location = new System.Drawing.Point(346, 33);
             this.btnIDokay.Name = "btnIDokay";
             this.btnIDokay.Size = new System.Drawing.Size(75, 23);
-            this.btnIDokay.TabIndex = 19;
+            this.btnIDokay.TabIndex = 1;
             this.btnIDokay.Text = "Okay";
             this.btnIDokay.UseVisualStyleBackColor = true;
             this.btnIDokay.Click += new System.EventHandler(this.btnIDokay_Click);
@@ -217,7 +217,7 @@
             this.lblRegistrationID.Location = new System.Drawing.Point(279, 215);
             this.lblRegistrationID.Name = "lblRegistrationID";
             this.lblRegistrationID.Size = new System.Drawing.Size(142, 23);
-            this.lblRegistrationID.TabIndex = 20;
+            this.lblRegistrationID.TabIndex = 8;
             // 
             // label8
             // 
