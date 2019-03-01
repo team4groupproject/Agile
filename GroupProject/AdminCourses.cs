@@ -8,17 +8,20 @@ namespace GroupProject
 {
     public partial class AdminCourses : Form
     {
+        //Declare string variable
         string connectionString;
         SqlConnection conn;
 
         public AdminCourses()
         {
+            //Assign value to variable conn
             InitializeComponent();
             connectionString = ConfigurationManager.ConnectionStrings ["GroupProject.Properties.Settings.TinyCollegeDBConnectionString"].ConnectionString;
         }
        
         private void AdminCourses_Load(object sender, EventArgs e)
         {
+            //Displays Course info on activation
             using (conn = new SqlConnection(connectionString))
             using (SqlDataAdapter adapter = new SqlDataAdapter ("SELECT * FROM course ORDER BY courseName ASC", conn))
             {
@@ -28,7 +31,7 @@ namespace GroupProject
                 CourseComboBox.ValueMember = "courseId";
                 CourseComboBox.DataSource = courseTable;
             }
-
+            //Displays Session info on activation
             using (conn = new SqlConnection(connectionString))
             using (SqlDataAdapter adapter = new SqlDataAdapter ("SELECT * FROM session", conn))
             {
@@ -39,7 +42,7 @@ namespace GroupProject
                 SessionComboBox.DataSource = sessionTable;
             }
         }        
-
+        //Fills SQL Database Course values into ComboBox
         private void CourseComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             using (conn = new SqlConnection(connectionString))
@@ -59,7 +62,7 @@ namespace GroupProject
                     }
                 }
         }
-
+        //Fills SQL Database Session values into ComboBox
         private void SessionComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             using (conn = new SqlConnection(connectionString))
@@ -78,7 +81,7 @@ namespace GroupProject
                     }
                 }
         }
-
+        //Saves changes to course
         private void btnCourseSave_Click(object sender, EventArgs e)
         {
             using (conn = new SqlConnection(connectionString))
@@ -96,7 +99,7 @@ namespace GroupProject
                 MessageBox.Show("Course Saved");
             }
         }
-
+        //Saves changes to session
         private void btnSessionSave_Click(object sender, EventArgs e)
         {
             using (conn = new SqlConnection(connectionString))
@@ -113,7 +116,7 @@ namespace GroupProject
                 MessageBox.Show("Session Saved");
             }
         }
-
+        //Clears course information on activation
         private void btnCoursesClear_Click(object sender, EventArgs e)
         {
             txtbxCourseName.Text = String.Empty;
@@ -121,17 +124,50 @@ namespace GroupProject
             txtbxCourseCreditHours.Text = String.Empty;
             txtbxCourseMaxSeats.Text = String.Empty;
         }
-
+        //Clears session information on activation
         private void btnSessinClear_Click(object sender, EventArgs e)
         {
             txtbxSessionCourseId.Text = String.Empty;
             txtbxSessionInstructorId.Text = String.Empty;
             txtbxSessionSeatsFilled.Text = String.Empty;
         }
-
+        //Closes administrator form on activation
         private void btnAdminCourseClose_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void courseUpdateButton_Click(object sender, EventArgs e)
+        {
+            using (conn = new SqlConnection(connectionString))
+            using (SqlCommand comd = new SqlCommand("UPDATE course SET courseName" + "= @cName, courseStatus" + "= @status, courseCreditHours" + "=@cHours, courseMaxNumSeats" + "= @cSeats WHERE courseId" + "= @CourseID", conn))
+            {
+                conn.Open();
+                comd.Parameters.AddWithValue("@cName", txtbxCourseName.Text);
+                comd.Parameters.AddWithValue("@status", txtbxCourseStatus.Text);
+                comd.Parameters.AddWithValue("@cHours", txtbxCourseCreditHours.Text);
+                comd.Parameters.AddWithValue("@cSeats", txtbxCourseMaxSeats.Text);
+                comd.Parameters.AddWithValue("@CourseID", CourseComboBox.SelectedValue);
+                comd.ExecuteScalar();
+                MessageBox.Show("The Course Information Has Been Updated");
+
+            }
+        }
+
+        private void sessionUpdateButton_Click(object sender, EventArgs e)
+        {
+            using (conn = new SqlConnection(connectionString))
+            using (SqlCommand comd = new SqlCommand("UPDATE session SET session.courseId" + "= @sCId, sessionSeatsFilled" + "= @sSeats, session.instructorId" + "=@sId  WHERE sessionId" + "= @SessionID", conn))
+            {
+                conn.Open();
+                comd.Parameters.AddWithValue("@sCId", txtbxSessionCourseId.Text);
+                comd.Parameters.AddWithValue("@sId", txtbxSessionInstructorId.Text);
+                comd.Parameters.AddWithValue("@sSeats", txtbxSessionSeatsFilled.Text);
+                comd.Parameters.AddWithValue("@SessionID", SessionComboBox.SelectedValue);
+                comd.ExecuteScalar();
+                MessageBox.Show("The Course Information Has Been Updated");
+
+            }
         }
     }
 }

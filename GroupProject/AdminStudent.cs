@@ -11,15 +11,17 @@ namespace GroupProject
 {
     public partial class AdminStudent : Form
     {
+        //Establish conn
         string connectionString;
         SqlConnection conn;
 
         public AdminStudent()
         {
+            //Connects form with SQL Database
             InitializeComponent();
             connectionString = ConfigurationManager.ConnectionStrings["GroupProject.Properties.Settings.TinyCollegeDBConnectionString"].ConnectionString;
         }
-
+        // Displays student info on activation
         private void AdminStudent_Load(object sender, EventArgs e)
         {
             using (conn = new SqlConnection(connectionString))
@@ -35,7 +37,7 @@ namespace GroupProject
                 }
             }
         }
-
+        // Fills SQL Student information into the ComboBox
         private void StudentComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             using (conn = new SqlConnection(connectionString))
@@ -45,6 +47,7 @@ namespace GroupProject
                 SqlCommand comd = new SqlCommand("SELECT studentId, studentFirstName, studentLastName FROM student where studentId='" + StudentComboBox.SelectedValue + "'", conn);
                 SqlDataAdapter adapter = new SqlDataAdapter(comd);
                 adapter.Fill(studentTable);
+
                 if (studentTable.Rows.Count > 0)
                 {
                     txtbxStuFirstName.Text = studentTable.Rows[0]["studentFirstName"].ToString();
@@ -52,13 +55,13 @@ namespace GroupProject
                 }                
             }
         }
-
+        // Clears student info on activations
         private void btnAdminStudentClear_Click(object sender, EventArgs e)
         {
             txtbxStuLastName.Text = String.Empty;
             txtbxStuFirstName.Text = String.Empty;
         }
-
+        // Allows user to add a new student
         private void btnAdminAddStudent_Click(object sender, EventArgs e)
         {
             using (conn = new SqlConnection(connectionString))
@@ -71,10 +74,25 @@ namespace GroupProject
                 MessageBox.Show("StudentAdded");
             }
         }
-
+        //Closes form
         private void btnAdminStudentClose_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void studentUpdateButton_Click(object sender, EventArgs e)
+        {
+            using (conn = new SqlConnection(connectionString))
+            using (SqlCommand comd = new SqlCommand("UPDATE student SET studentFirstName" + "= @fName, studentLastName" + "= @lName WHERE studentId" + "= @StudentID", conn))
+            {
+                conn.Open();
+                comd.Parameters.AddWithValue("@fName", txtbxStuFirstName.Text);
+                comd.Parameters.AddWithValue("@lName", txtbxStuLastName.Text);
+                comd.Parameters.AddWithValue("@StudentID", StudentComboBox.SelectedValue);
+                comd.ExecuteScalar();
+                MessageBox.Show("The Student Information Has Been Updated");
+
+            }
         }
     }
 }

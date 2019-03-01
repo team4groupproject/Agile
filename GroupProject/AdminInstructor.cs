@@ -8,16 +8,19 @@ namespace GroupProject
 {
     public partial class AdminInstructor : Form
     {
+        //Declare conn
         string connectionString;
         SqlConnection conn;
         public AdminInstructor()
         {
+            //Connects to SQL Database
             InitializeComponent();
             connectionString = ConfigurationManager.ConnectionStrings ["GroupProject.Properties.Settings.TinyCollegeDBConnectionString"].ConnectionString;
         }
         
         private void AdminInstructor_Load(object sender, EventArgs e)
         {
+            //display instructor info
             using (conn = new SqlConnection(connectionString))
             using (SqlDataAdapter adapter = new SqlDataAdapter ("SELECT instructorId, CONCAT (instructorFirstName, ' ', instructorLastName) as FirstLast FROM instructor ORDER BY FirstLast ASC", conn))
             {
@@ -28,7 +31,7 @@ namespace GroupProject
                 InstructorComboBox.DataSource = instructorTable;
             }
         }
-
+        // Fills SQL Database Instructor values into ComboBox on activation
         private void InstructorComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             using (conn = new SqlConnection(connectionString))
@@ -45,7 +48,7 @@ namespace GroupProject
                     }
                 }
         }
-
+        // Saves new user values
         private void btnAdminInstructorSave_Click(object sender, EventArgs e)
         {
             using (conn = new SqlConnection(connectionString))
@@ -60,16 +63,31 @@ namespace GroupProject
                 MessageBox.Show("Instructor Added");
             }
         }
-
+        //Closes Administrator form
         private void btnAdminInstructorClose_Click(object sender, EventArgs e)
         {
             Close();
         }
-
+        //Clears Instructor values on activation
         private void btnAdminInstructorClear_Click(object sender, EventArgs e)
         {
             txtbxInstructorFirstName.Text = String.Empty;
             txtbxInstructorLastName.Text = String.Empty;
-        }        
+        }
+
+        private void instructorUpdateButton_Click(object sender, EventArgs e)
+        {
+            using (conn = new SqlConnection(connectionString))
+            using (SqlCommand comd = new SqlCommand("UPDATE instructor SET instructorFirstName" + "= @fName, instructorLastName" + "= @lName WHERE instructorId" + "= @InstructorId", conn))
+            {
+                conn.Open();
+                comd.Parameters.AddWithValue("@fName", txtbxInstructorFirstName.Text);
+                comd.Parameters.AddWithValue("@lName", txtbxInstructorLastName.Text);
+                comd.Parameters.AddWithValue("@InstructorId", InstructorComboBox.SelectedValue);
+                comd.ExecuteScalar();
+                MessageBox.Show("The Instructor Information Has Been Updated");
+
+            }
+        }
     }
 }
