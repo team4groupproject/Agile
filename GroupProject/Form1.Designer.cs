@@ -62,6 +62,7 @@
             this.btnStudents.TabIndex = 2;
             this.btnStudents.Text = "For Students";
             this.btnStudents.UseVisualStyleBackColor = true;
+            this.btnStudents.Click += new System.EventHandler(this.btnStudents_Click);
             // 
             // btnMainFormExit
             // 
