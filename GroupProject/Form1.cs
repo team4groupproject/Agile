@@ -28,5 +28,11 @@ namespace GroupProject
             Instructor instructor = new Instructor();
             instructor.ShowDialog();
         }
+
+        private void btnStudents_Click(object sender, EventArgs e)
+        {
+            StudentChoices studentChoices = new StudentChoices();
+            studentChoices.ShowDialog();
+        }
     }
 }
